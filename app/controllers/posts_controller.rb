@@ -18,19 +18,17 @@ class PostsController < ApplicationController
   end
 
   def create
-    the_post = Post.new
-    the_post.title = params.fetch("query_title")
-    the_post.body = params.fetch("query_body")
-    the_post.expires_on = params.fetch("query_expires_on").to_date
-    the_post.board_id = params.fetch("path_id").to_i
+    @the_post = Post.new
+    @the_post.title = params.fetch("query_title")
+    @the_post.body = params.fetch("query_body")
+    @the_post.expires_on = params.fetch("query_expires_on")
+    @the_post.board_id = params.fetch("path_id").to_i
 
-    the_post.save
-
-    if the_post.valid?
-      the_post.save
+    if @the_post.valid?
+      @the_post.save
       redirect_to("/posts", { :notice => "Post created successfully." })
     else
-      redirect_to("/posts", { :alert => the_post.errors.full_messages.to_sentence })
+      redirect_to("/posts", { :alert => @the_post.errors.full_messages.to_sentence })
     end
   end
 
