@@ -22,13 +22,13 @@ class PostsController < ApplicationController
     @the_post.title = params.fetch("query_title")
     @the_post.body = params.fetch("query_body")
     @the_post.expires_on = params.fetch("query_expires_on")
-    @the_post.board_id = params.fetch("path_id").to_i
+    @the_post.board_id = params.fetch("board_id").to_i
 
-    if @the_post.valid?
+    if (@the_post.valid?) && (@the_post.body != "")
       @the_post.save
-      redirect_to("/posts", { :notice => "Post created successfully." })
+      redirect_to("/boards/#{@the_post.board_id}", { :notice => "Post created successfully." })
     else
-      redirect_to("/posts", { :alert => @the_post.errors.full_messages.to_sentence })
+      redirect_to("/boards/#{params.fetch("board_id").to_i}", { :alert => @the_post.errors.full_messages.to_sentence })
     end
   end
 

@@ -14,14 +14,24 @@
       <h2>Add a new post</h2>
 
       <form action="/insert_post" method="post">
-        <label for="post_title">Title</label>
-        <input id="post_title" name="query_title"><br>
+        <div>
+          <input id="post_boardid" type="hidden" name="board_id" value=<%=@the_board.id%> >
+        </div>
 
-        <label for="post_body">Body</label>
-        <textarea id="post_body" name="query_body" rows=3></textarea></br>
-
-        <label for="post_expiry">Expires on</label>
-        <input type="date" id="post_expiry" name="query_expires_on"></br>
+        <div>
+          <label for="post_title">Title</label>
+          <input id="post_title" name="query_title">
+        </div>
+        
+        <div>
+          <label for="post_body">Body</label>
+          <textarea id="post_body" name="query_body" rows=3></textarea>
+        </div>
+        
+        <div>
+          <label for="post_expiry">Expires on</label>
+          <input type="date" id="post_expiry" name="query_expires_on">
+        </div>
 
         <button>Add post</button>
       </form>
@@ -61,8 +71,8 @@
       <tr>
         <td> <%= post.title %> </td>
         <td> <%= post.body %> </td>
-        <td> <%= post.created_at %> </td>
-        <td> <%= post.expires_on %> </td>
+        <td> <%= post.created_at.strftime("%b %d, %Y") %> </td>
+        <td> <%= post.expires_on.strftime("%b %d, %Y") %> </td>
       </tr
 
     <% end %>
